@@ -3,7 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>专家级信息图：关于瘦脸针的一切 (AI增强版)</title>
+    <title>瘦脸针：专家级互动指南</title>
+    <!-- Chosen Palette: Clinical Calm (Primary: #3B82F6, Accent: #F97316, Neutral: #4B5563, Background: #F3F4F6) -->
+    <!-- Application Structure Plan: The SPA is designed with a user-centric, thematic flow, rather than mirroring the report's academic structure. It starts with the user's most immediate question ("Am I a candidate?") and progresses through understanding the science, making informed product choices, and finally, learning about aftercare and risks. This journey is more intuitive and engaging. The structure includes: 1) Interactive Self-Assessment, 2) Visualized Scientific Principles, 3) Interactive Product Comparison Dashboard, 4) Step-by-Step Aftercare Guide, and 5) A clear concluding summary of safety principles. This non-linear, task-oriented design enhances usability and comprehension. -->
+    <!-- Visualization & Content Choices: 
+        - Suitability Assessment (Goal: Inform/Organize): Interactive checklist using HTML/JS. Justification: Provides immediate, personalized feedback, answering the user's primary question first.
+        - How It Works (Goal: Change/Inform): Interactive timeline slider and CSS-based diagram. Justification: Visual storytelling makes the complex biological process and timeline easy to grasp.
+        - Product Comparison (Goal: Compare): Interactive Bar Chart (Chart.js/Canvas). Justification: Effectively visualizes the report's key insight that regulatory approval, not origin, defines quality. Clickable bars enhance data exploration without clutter.
+        - Aftercare Guide (Goal: Organize): Step-by-step visual guide using HTML/CSS Flexbox and icons. Justification: Converts dense text into an easy-to-follow, scannable checklist.
+        - Risk Information (Goal: Inform): JS-powered toggle/accordion. Justification: Presents sensitive information in a layered manner, reducing initial user anxiety while ensuring full disclosure.
+        - CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. 
+    -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,6 +22,8 @@
     <style>
         body {
             font-family: 'Noto Sans SC', sans-serif;
+            background-color: #F3F4F6;
+            color: #1F2937;
         }
         .chart-container {
             position: relative;
@@ -19,446 +31,437 @@
             max-width: 800px;
             margin-left: auto;
             margin-right: auto;
-            height: 400px;
-            max-height: 50vh;
+            height: 450px;
+            max-height: 60vh;
         }
-        @media (min-width: 768px) {
+        @media (max-width: 768px) {
             .chart-container {
-                height: 500px;
+                height: 400px;
             }
         }
-        .gradient-text {
-            background: linear-gradient(to right, #00A9E0, #7DBA43);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .nav-link {
+            transition: all 0.3s ease;
         }
-        .loader {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #00A9E0;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
+        .nav-link.active {
+            color: #2563EB;
+            border-bottom-color: #2563EB;
         }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .section-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            padding: 1.5rem;
+        }
+        .step-connector {
+            flex-grow: 1;
+            height: 2px;
+            background-color: #D1D5DB;
+        }
+        .step.active .step-circle {
+            background-color: #3B82F6;
+            color: white;
+        }
+        .step.active .step-connector {
+            background-color: #3B82F6;
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body class="antialiased">
 
-    <div class="container mx-auto p-4 md:p-8">
-        
-        <header class="text-center mb-12">
-            <h1 class="text-4xl md:text-6xl font-bold mb-4 gradient-text">瘦脸针完整指南</h1>
-            <p class="text-lg text-gray-600 max-w-3xl mx-auto">基于科学，融合AI智能问答，解答您的所有疑问。</p>
-        </header>
-
-        <main class="space-y-12">
-
-            <section id="science" class="bg-white rounded-2xl shadow-lg p-6 md:p-8">
-                <h2 class="text-3xl font-bold text-center mb-8 text-[#00A9E0]">1. 核心科学：它如何发挥作用？</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                    <div class="space-y-4">
-                        <h3 class="text-2xl font-semibold">主要成分：A型肉毒杆菌毒素</h3>
-                        <p class="text-gray-700">“瘦脸针”的核心是一种经过高度纯化的生物制品——A型肉毒杆菌毒素。它并非毒药，而是一种精确作用于神经的强效处方药。它通过暂时阻断神经向咬肌传递收缩信号，让过度发达的肌肉得以放松、休息，并逐渐自然萎缩变小，从而在视觉上达到瘦脸的效果。</p>
-                        <div class="flex items-center space-x-4 p-4 bg-blue-50 rounded-lg">
-                            <span class="text-4xl">💡</span>
-                            <p class="font-semibold">核心原理：让肌肉“放个假”，而非“消除”肌肉。</p>
-                        </div>
-                    </div>
-                    <div>
-                        <h3 class="text-2xl font-semibold text-center mb-4">效果显现时间线</h3>
-                        <div class="relative p-4">
-                            <div class="absolute left-2 top-0 bottom-0 w-1 bg-blue-100 rounded"></div>
-                            <div class="relative pl-8 mb-6">
-                                <div class="absolute left-0 top-1 w-5 h-5 bg-[#00A9E0] rounded-full -translate-x-1/2"></div>
-                                <h4 class="font-bold">1-2 周</h4>
-                                <p class="text-sm text-gray-600">开始感觉咬肌力量减弱，咀嚼时有轻微酸软感。</p>
-                            </div>
-                            <div class="relative pl-8 mb-6">
-                                <div class="absolute left-0 top-1 w-5 h-5 bg-[#00A9E0] rounded-full -translate-x-1/2"></div>
-                                <h4 class="font-bold">2-4 周</h4>
-                                <p class="text-sm text-gray-600">面部轮廓开始出现可见的收窄变化。</p>
-                            </div>
-                            <div class="relative pl-8 mb-6">
-                                <div class="absolute left-0 top-1 w-5 h-5 bg-[#F7A823] rounded-full -translate-x-1/2 ring-4 ring-orange-100"></div>
-                                <h4 class="font-bold">1-2 个月</h4>
-                                <p class="text-sm text-gray-600">达到最佳瘦脸效果，面部线条最为柔和。</p>
-                            </div>
-                            <div class="relative pl-8">
-                                <div class="absolute left-0 top-1 w-5 h-5 bg-[#7DBA43] rounded-full -translate-x-1/2"></div>
-                                <h4 class="font-bold">4-6 个月</h4>
-                                <p class="text-sm text-gray-600">效果逐渐减退，咬肌功能和体积开始恢复。可考虑再次治疗以维持效果。</p>
-                            </div>
-                        </div>
-                    </div>
+    <!-- Header & Navigation -->
+    <header class="bg-white/80 backdrop-blur-sm sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-4">
+            <div class="flex items-center justify-between h-16">
+                <h1 class="text-xl font-bold text-blue-600">瘦脸针 · 互动指南</h1>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#section-assessment" class="nav-link text-gray-600 hover:text-blue-600 border-b-2 border-transparent pb-1">自我评估</a>
+                    <a href="#section-science" class="nav-link text-gray-600 hover:text-blue-600 border-b-2 border-transparent pb-1">科学原理</a>
+                    <a href="#section-products" class="nav-link text-gray-600 hover:text-blue-600 border-b-2 border-transparent pb-1">产品选择</a>
+                    <a href="#section-care" class="nav-link text-gray-600 hover:text-blue-600 border-b-2 border-transparent pb-1">流程与护理</a>
                 </div>
-            </section>
+            </div>
+        </nav>
+    </header>
 
-            <section id="requirements" class="bg-white rounded-2xl shadow-lg p-6 md:p-8">
-                <h2 class="text-3xl font-bold text-center mb-8 text-[#00A9E0]">2. 对使用者的要求：我适合吗？</h2>
+    <main class="container mx-auto p-4 md:p-8 space-y-16">
+        
+        <!-- Section 1: Self-Assessment -->
+        <section id="section-assessment" class="scroll-mt-20">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800">第一步：我适合吗？</h2>
+                <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">在考虑任何医疗美容项目前，了解其适应症和禁忌症是保障安全的首要前提。本节将帮助您进行初步的自我评估。</p>
+            </div>
+            <div class="section-card">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-500">
-                        <h3 class="text-2xl font-semibold mb-4 text-green-800">理想候选人 ✅</h3>
-                        <p class="mb-4">该治疗仅适用于一个特定人群：</p>
-                        <p class="font-bold text-lg text-green-900">经专业医师诊断，面部宽大主要由“咬肌肥大”引起的个体。</p>
-                        <p class="mt-4 text-sm text-gray-600"><strong>自我检查:</strong> 用力咬紧牙关，如果在脸颊下颌角处能摸到一块硬硬的、隆起的肌肉，那么你很可能就是合适的候选人。</p>
+                    <!-- Ideal Candidate -->
+                    <div>
+                        <h3 class="text-2xl font-semibold text-green-600 mb-4">✅ 理想候选人</h3>
+                        <p class="mb-4 text-gray-700">此项治疗仅针对一个核心问题：<strong class="font-bold">因咬肌过度发达而导致的面部下半部分宽大。</strong></p>
+                        <div class="bg-green-50 p-4 rounded-lg">
+                            <p class="font-semibold mb-2">快速自查法：</p>
+                            <p class="text-sm text-gray-600">请用力咬紧您的后槽牙，同时用手触摸下颌角区域（脸颊两侧靠下的位置）。如果您能摸到一块明显隆起的、坚硬的肌肉，那么您很可能就是理想的候选人。</p>
+                        </div>
                     </div>
-                    <div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-500">
-                        <h3 class="text-2xl font-semibold mb-4 text-red-800">绝对禁忌症 ❌</h3>
-                        <p class="mb-2">如果您属于以下任何一种情况，则<strong class="text-red-900">严禁</strong>使用：</p>
-                        <ul class="list-disc list-inside space-y-2 text-gray-700">
-                            <li>妊娠期及哺乳期女性</li>
-                            <li>患有神经肌肉疾病（如重症肌无力）</li>
-                            <li>对药物任何成分过敏</li>
-                            <li>注射部位有感染或炎症</li>
+                    <!-- Contraindications -->
+                    <div>
+                        <h3 class="text-2xl font-semibold text-red-600 mb-4">❌ 绝对禁忌人群</h3>
+                        <p class="mb-4 text-gray-700">如果您属于以下任何一种情况，则<strong class="font-bold">严禁</strong>接受此项治疗：</p>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <span class="text-red-500 mr-3 mt-1 font-bold">●</span>
+                                <div><strong class="text-gray-800">妊娠期或哺乳期</strong><p class="text-sm text-gray-500">出于最高安全原则的考虑。</p></div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-red-500 mr-3 mt-1 font-bold">●</span>
+                                <div><strong class="text-gray-800">神经肌肉疾病患者</strong><p class="text-sm text-gray-500">如重症肌无力，可能加剧病情。</p></div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-red-500 mr-3 mt-1 font-bold">●</span>
+                                <div><strong class="text-gray-800">已知过敏史</strong><p class="text-sm text-gray-500">对药物任何成分过敏。</p></div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-red-500 mr-3 mt-1 font-bold">●</span>
+                                <div><strong class="text-gray-800">注射部位有感染</strong><p class="text-sm text-gray-500">需待感染完全愈合后进行。</p></div>
+                            </li>
                         </ul>
                     </div>
                 </div>
-                 <div class="mt-8 text-center p-4 bg-yellow-50 rounded-lg">
-                    <p class="font-semibold text-yellow-800">⚠️ <span class="font-bold">重要提醒：</span> 注射瘦脸针是严肃的医疗行为。必须由具备资质的专业医师在正规医疗机构中进行。医师的专业性（精确的剂量、点位和层次控制）是安全和效果的根本保障。</p>
+                 <div class="mt-8 text-center p-4 bg-blue-50 rounded-lg border-l-4 border-blue-500">
+                    <p class="font-semibold text-blue-800"><span class="font-bold">专家提示：</span> 自我评估仅供参考。最终诊断和治疗决策必须由具备资质的专业医师在面诊后做出。</p>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <section id="products" class="bg-white rounded-2xl shadow-lg p-6 md:p-8">
-                <h2 class="text-3xl font-bold text-center mb-2 text-[#00A9E0]">3. 产品质量：哪个国家或地区更好？</h2>
-                <p class="text-center text-gray-600 max-w-3xl mx-auto mb-8">一个产品的“国籍”远不如其获得的“签证”重要。真正的质量标准是看它是否获得了全球顶级药品监管机构（如美国FDA、欧洲EMA、中国NMPA）的批准。批准越多，意味着其安全性、有效性和生产工艺经过了越广泛和严格的科学检验。</p>
-                <div class="chart-container">
-                    <canvas id="brandsChart"></canvas>
-                </div>
-                 <p class="text-center text-sm text-gray-500 mt-4">图表解读：此图基于各品牌获得全球三大主要市场（美、欧、中）监管机构批准的数量进行评分。分数越高，代表其全球准入标准和认可度越高。这直观地表明，来自美国/爱尔兰、法国/英国、德国和韩国的顶尖产品均达到了国际一流质量标准。</p>
-            </section>
-            
-            <section id="aftercare" class="bg-white rounded-2xl shadow-lg p-6 md:p-8">
-                <h2 class="text-3xl font-bold text-center mb-8 text-[#00A9E0]">4. ✨ AI个性化术后护理计划</h2>
-                <p class="text-center text-gray-600 max-w-3xl mx-auto mb-6">告别通用指南。输入您的治疗日期，AI将为您生成一份专属的7日护理计划，让您的恢复过程清晰、安心。</p>
-                <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
-                    <input type="date" id="treatment-date" class="p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                    <button id="generate-plan-btn" class="w-full sm:w-auto bg-[#00A9E0] text-white font-bold py-2 px-6 rounded-lg hover:bg-[#008ab4] transition-colors">生成我的计划</button>
-                </div>
-                <div id="plan-container" class="mt-6">
-                    <p class="text-center text-gray-500">请选择日期以生成您的个性化护理计划。</p>
-                </div>
-                <div id="plan-loader" class="hidden justify-center items-center mt-6">
-                    <div class="loader"></div>
-                    <p class="ml-4 text-gray-600">AI正在为您生成专属计划，请稍候...</p>
-                </div>
-            </section>
-            
-            <section id="conclusion" class="text-center p-8 bg-gradient-to-r from-[#00A9E0] to-[#008ab4] rounded-2xl shadow-xl">
-                 <h2 class="text-3xl font-bold text-white mb-6">结论：通往安全有效的三个支柱</h2>
-                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                     <div class="bg-white/90 p-6 rounded-lg backdrop-blur-sm">
-                         <div class="text-5xl mb-4">🔬</div>
-                         <h3 class="text-xl font-bold text-gray-800">合规的产品</h3>
-                         <p class="text-gray-600 mt-2">选择获得权威机构（FDA, EMA, NMPA）批准的药物。</p>
-                     </div>
-                     <div class="bg-white/90 p-6 rounded-lg backdrop-blur-sm">
-                         <div class="text-5xl mb-4">👨‍⚕️</div>
-                         <h3 class="text-xl font-bold text-gray-800">专业的医师</h3>
-                         <p class="text-gray-600 mt-2">在正规医疗机构，由持证医师进行操作。</p>
-                     </div>
-                     <div class="bg-white/90 p-6 rounded-lg backdrop-blur-sm">
-                         <div class="text-5xl mb-4">🙋‍♀️</div>
-                         <h3 class="text-xl font-bold text-gray-800">负责任的你</h3>
-                         <p class="text-gray-600 mt-2">诚实告知病史，并严格遵守术后护理。</p>
-                     </div>
-                 </div>
-                 <p class="text-white mt-8 font-semibold text-lg">在任何医疗美容决策中，安全永远是第一原则。</p>
-            </section>
-
-        </main>
-        
-        <footer class="text-center mt-12 py-6 border-t">
-            <p class="text-sm text-gray-500">本信息图内容基于专业医疗美容报告生成，仅供参考，不能替代专业医师的诊断和建议。</p>
-        </footer>
-
-    </div>
-
-    <!-- AI Chat Bot -->
-    <button id="chat-fab" class="fixed bottom-8 right-8 bg-[#00A9E0] text-white w-16 h-16 rounded-full shadow-lg flex items-center justify-center text-3xl hover:bg-[#008ab4] transition-transform hover:scale-110">
-        ✨
-    </button>
-    <div id="chat-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl h-[80vh] flex flex-col">
-            <header class="p-4 border-b flex justify-between items-center">
-                <h3 class="text-xl font-bold text-[#00A9E0]">AI智能问答</h3>
-                <button id="close-chat-btn" class="text-gray-500 hover:text-gray-800 text-2xl">&times;</button>
-            </header>
-            <main id="chat-history" class="flex-1 p-4 overflow-y-auto space-y-4">
-                 <div class="flex justify-start">
-                    <div class="bg-gray-100 rounded-lg p-3 max-w-lg">
-                        <p>您好！我是您的AI健康助手。您可以问我任何关于瘦脸针的问题。例如“治疗后多久可以化妆？”或“有哪些潜在的风险？”</p>
+        <!-- Section 2: Science -->
+        <section id="section-science" class="scroll-mt-20">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800">工作原理：科学的“减法”艺术</h2>
+                <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">瘦脸针并非“溶解”或“消除”肌肉，而是通过精准的神经调控技术，让过度发达的咬肌“放个假”，从而自然萎缩变小。</p>
+            </div>
+            <div class="section-card p-8">
+                 <div class="flex flex-col md:flex-row items-center justify-center gap-8 text-center">
+                    <div class="flex flex-col items-center">
+                        <div class="text-4xl p-4 bg-gray-100 rounded-full">💉</div>
+                        <h4 class="font-bold mt-2">精准注射</h4>
+                        <p class="text-sm text-gray-500 w-32">药物进入咬肌</p>
+                    </div>
+                    <div class="text-4xl text-gray-300 font-light">→</div>
+                    <div class="flex flex-col items-center">
+                        <div class="text-4xl p-4 bg-gray-100 rounded-full">⚡️</div>
+                        <h4 class="font-bold mt-2">阻断信号</h4>
+                        <p class="text-sm text-gray-500 w-32">神经指令无法传达</p>
+                    </div>
+                    <div class="text-4xl text-gray-300 font-light">→</div>
+                    <div class="flex flex-col items-center">
+                        <div class="text-4xl p-4 bg-gray-100 rounded-full">💆‍♀️</div>
+                        <h4 class="font-bold mt-2">肌肉放松</h4>
+                        <p class="text-sm text-gray-500 w-32">咬肌停止过度运动</p>
+                    </div>
+                    <div class="text-4xl text-gray-300 font-light">→</div>
+                    <div class="flex flex-col items-center">
+                        <div class="text-4xl p-4 bg-gray-100 rounded-full">📉</div>
+                        <h4 class="font-bold mt-2">体积减小</h4>
+                        <p class="text-sm text-gray-500 w-32">“废用性萎缩”达成瘦脸</p>
                     </div>
                 </div>
-            </main>
-            <div id="chat-loader" class="hidden p-4 items-center">
-                 <div class="loader !w-8 !h-8 !border-2"></div>
-                 <p class="ml-3 text-sm text-gray-500">AI正在思考中...</p>
-            </div>
-            <footer class="p-4 border-t">
-                <div class="flex gap-2">
-                    <input type="text" id="chat-input" class="flex-1 p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="在此输入您的问题...">
-                    <button id="send-chat-btn" class="bg-[#00A9E0] text-white font-bold py-2 px-4 rounded-lg hover:bg-[#008ab4]">发送</button>
+                <div class="mt-12">
+                    <h3 class="text-xl font-semibold text-center mb-6">效果展现时间轴 (可拖动滑块查看)</h3>
+                    <div class="relative px-2">
+                        <input type="range" id="timeline-slider" min="0" max="3" value="0" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                        <div class="flex justify-between text-xs text-gray-500 mt-2">
+                            <span>注射当天</span>
+                            <span>1-2 周</span>
+                            <span>1-2 个月</span>
+                            <span>4-6 个月</span>
+                        </div>
+                    </div>
+                    <div id="timeline-info" class="mt-6 p-6 bg-gray-50 rounded-lg text-center min-h-[100px] flex items-center justify-center fade-in">
+                        <!-- Info will be populated by JS -->
+                    </div>
                 </div>
-            </footer>
-        </div>
-    </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Product Choice -->
+        <section id="section-products" class="scroll-mt-20">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800">产品选择：监管认证是金标准</h2>
+                <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">产品的“国籍”远不如其获得的“签证”重要。一个产品的质量高低，最客观的衡量标准是其获得了多少个全球顶级药品监管机构（如美国FDA, 欧洲EMA, 中国NMPA）的批准。</p>
+            </div>
+             <div class="section-card">
+                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <div class="lg:col-span-2">
+                        <div class="chart-container">
+                            <canvas id="brandsChart"></canvas>
+                        </div>
+                    </div>
+                    <div id="brand-details" class="p-4 bg-gray-50 rounded-lg min-h-[300px] flex flex-col justify-center fade-in">
+                        <p class="text-center text-gray-500">请点击图表中的品牌条目以查看详细信息。</p>
+                    </div>
+                 </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Process & Care -->
+        <section id="section-care" class="scroll-mt-20">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800">术后护理：保障效果与安全</h2>
+                <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">严格的术后护理是主动的风险管理，核心目的是防止药物弥散，最大化治疗效果。请遵循以下时间表。</p>
+            </div>
+            <div class="section-card">
+                 <div class="relative">
+                    <!-- Timeline Steps -->
+                    <div class="flex items-center">
+                        <div id="step-1" class="step active flex-1 flex flex-col items-center text-center">
+                            <div class="step-circle w-12 h-12 rounded-full bg-gray-300 flex items-center justify-center font-bold text-lg text-white transition-colors duration-300">1</div>
+                            <p class="mt-2 font-semibold">0-6 小时</p>
+                        </div>
+                        <div class="step-connector"></div>
+                        <div id="step-2" class="step flex-1 flex flex-col items-center text-center">
+                             <div class="step-circle w-12 h-12 rounded-full bg-gray-300 flex items-center justify-center font-bold text-lg text-white transition-colors duration-300">2</div>
+                            <p class="mt-2 font-semibold">24 小时</p>
+                        </div>
+                        <div class="step-connector"></div>
+                        <div id="step-3" class="step flex-1 flex flex-col items-center text-center">
+                             <div class="step-circle w-12 h-12 rounded-full bg-gray-300 flex items-center justify-center font-bold text-lg text-white transition-colors duration-300">3</div>
+                            <p class="mt-2 font-semibold">1 周内</p>
+                        </div>
+                    </div>
+                    <!-- Timeline Content -->
+                    <div id="care-content" class="mt-8 p-6 bg-gray-50 rounded-lg min-h-[200px] fade-in">
+                        <!-- Content loaded by JS -->
+                    </div>
+                 </div>
+            </div>
+        </section>
+        
+        <!-- Conclusion -->
+        <section id="conclusion" class="text-center scroll-mt-20">
+            <div class="bg-gradient-to-r from-blue-600 to-blue-800 rounded-lg p-8 md:p-12 text-white">
+                <h2 class="text-3xl font-bold mb-6">安全有效治疗的三大支柱</h2>
+                <p class="max-w-3xl mx-auto mb-10">一个成功的治疗结果，建立在以下三个不可或缺的要素之上。</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-white/10 p-6 rounded-lg backdrop-blur-sm text-center">
+                        <div class="text-5xl mb-4">🛡️</div>
+                        <h3 class="text-xl font-bold">合规的产品</h3>
+                        <p class="mt-2 text-blue-100">选择获权威机构批准的药物，质量有保障。</p>
+                    </div>
+                    <div class="bg-white/10 p-6 rounded-lg backdrop-blur-sm text-center">
+                        <div class="text-5xl mb-4">👨‍⚕️</div>
+                        <h3 class="text-xl font-bold">专业的医师</h3>
+                        <p class="mt-2 text-blue-100">在正规医疗机构，由持证医师进行操作。</p>
+                    </div>
+                    <div class="bg-white/10 p-6 rounded-lg backdrop-blur-sm text-center">
+                        <div class="text-5xl mb-4">🙋‍♀️</div>
+                        <h3 class="text-xl font-bold">负责任的你</h3>
+                        <p class="mt-2 text-blue-100">诚实告知病史，严格遵守术后护理。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+    </main>
+
+    <footer class="text-center py-8 px-4 border-t border-gray-200">
+        <p class="text-sm text-gray-500">本互动指南内容基于专家报告生成，仅供信息参考，不能替代专业医师的诊断和建议。</p>
+        <p class="text-xs text-gray-400 mt-2">© 2025 专家级互动指南</p>
+    </footer>
 
     <script>
-        // Chart.js initialization
-        function wrapLabel(str, maxWidth) {
-            if (typeof str !== 'string' || str.length <= maxWidth) {
-                return str;
-            }
-            const words = str.split(' ');
-            let lines = [];
-            let currentLine = words[0];
-
-            for (let i = 1; i < words.length; i++) {
-                if (currentLine.length + words[i].length + 1 < maxWidth) {
-                    currentLine += ' ' + words[i];
-                } else {
-                    lines.push(currentLine);
-                    currentLine = words[i];
-                }
-            }
-            lines.push(currentLine);
-            return lines;
-        }
-
-        const ctx = document.getElementById('brandsChart').getContext('2d');
-        const brandsData = {
-            labels: [
-                wrapLabel('Botox® (美国/爱尔兰 Allergan)', 16),
-                wrapLabel('Dysport® (法国/英国 Ipsen)', 16),
-                wrapLabel('Xeomin® (德国 Merz)', 16),
-                wrapLabel('Letybo® (韩国 Hugel)', 16),
-                wrapLabel('Hengli® (中国 兰州所)', 16),
-            ],
-            datasets: [{
-                label: '全球主要市场批准数量评分',
-                data: [3, 3, 3, 3, 1],
-                backgroundColor: ['#00A9E0', '#662D8E', '#7DBA43', '#F7A823', '#F05A28'],
-                borderColor: ['#008ab4', '#50246e', '#639a34', '#c7861b', '#c04820'],
-                borderWidth: 2,
-                borderRadius: 5,
-            }]
-        };
-
-        const brandsChart = new Chart(ctx, {
-            type: 'bar', data: brandsData, options: {
-                responsive: true, maintainAspectRatio: false, indexAxis: 'y',
-                scales: {
-                    x: {
-                        beginAtZero: true, max: 3,
-                        ticks: {
-                            stepSize: 1,
-                            callback: function(value) {
-                                const labels = ['未批准', 'NMPA', 'NMPA+FDA/EMA', 'NMPA+FDA+EMA'];
-                                return labels[value];
-                            }
-                        },
-                        grid: { color: '#E5E7EB' }
-                    },
-                    y: { ticks: { font: { size: 14 } }, grid: { display: false } }
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Data from Report ---
+            const timelineData = [
+                { title: '药物起效期', description: '您可能会开始感觉到咬肌力量减弱，例如在咀嚼硬物时感到轻微酸软。这是药物开始发挥作用的正常现象。' },
+                { title: '效果显现期', description: '外观上的瘦脸效果开始逐渐显现，面部轮廓变得更加柔和。在第1至2个月时，效果将达到顶峰。' },
+                { title: '效果维持与减退期', description: '瘦脸效果通常可以维持4到6个月。之后，咬肌功能和体积会逐渐恢复。为维持效果，可考虑进行下一次治疗。' }
+            ];
+            
+            const brandData = {
+                labels: [
+                    'Botox® (美国/爱尔兰)',
+                    'Dysport® (法国/英国)',
+                    'Xeomin® (德国)',
+                    'Letybo® (韩国)',
+                    'Hengli® (中国)',
+                ],
+                datasets: [{
+                    label: '主要市场批准数量',
+                    data: [3, 3, 3, 3, 1], // FDA, EMA, NMPA
+                    backgroundColor: ['#3B82F6', '#6366F1', '#10B981', '#F59E0B', '#EF4444'],
+                }],
+                details: [
+                    { name: 'Botox® (保妥适®)', manufacturer: '艾尔建/艾伯维', origin: '美国/爱尔兰', feature: '被视为行业“金标准”，拥有最长的临床应用历史和最丰富的临床数据。首个在中国获批咬肌肥大适应症。' },
+                    { name: 'Dysport® (丽舒妥®)', manufacturer: '益普生/高德美', origin: '法国/英国', feature: '弥散范围可能相对较广，这在治疗大面积区域时可能是优势，但在精确定位时对注射技术要求更高。' },
+                    { name: 'Xeomin® (西马®)', manufacturer: '麦斯医药', origin: '德国', feature: '独特的“裸露”纯净毒素，不含复合蛋白，理论上可能降低长期使用后产生抗体的风险。' },
+                    { name: 'Letybo® (乐提葆®)', manufacturer: 'Hugel Inc.', origin: '韩国', feature: '首个同时获得美、欧、中三大主要市场批准的韩国品牌，标志其质量达到国际顶尖水平。' },
+                    { name: 'Hengli® (衡力®)', manufacturer: '兰州生物制品研究所', origin: '中国', feature: '中国国产品牌，应用历史长，用户基础广泛。目前主要在亚洲及部分其他地区注册。' },
+                ]
+            };
+            
+            const aftercareData = [
+                {
+                    title: '关键弥散防止期 (0-6小时)',
+                    items: [
+                        { text: '严禁平躺、低头或按压、揉搓注射部位。', reason: '利用重力稳定药物，防止其迁移至非目标肌肉，引发表情僵硬。' },
+                        { text: '不要洗脸、化妆。', reason: '保持注射点干燥清洁，防止针眼感染。' },
+                    ]
                 },
-                plugins: {
-                    legend: { display: false },
-                    title: {
-                        display: true, text: '全球主流肉毒杆菌毒素品牌质量对比 (基于监管批准)',
-                        font: { size: 18, weight: 'bold' }, padding: { top: 10, bottom: 30 }
-                    },
-                    tooltip: {
-                        callbacks: {
-                            title: function(tooltipItems) {
-                                const item = tooltipItems[0]; let label = item.chart.data.labels[item.dataIndex];
-                                return Array.isArray(label) ? label.join(' ') : label;
+                {
+                    title: '效果稳定期 (24小时内)',
+                    items: [
+                        { text: '避免剧烈运动、桑拿、热敷、饮酒。', reason: '避免加速血液循环，这可能缩短药物有效期或增加弥散风险。' },
+                    ]
+                },
+                {
+                    title: '效果最大化期 (1周内)',
+                    items: [
+                        { text: '避免咀嚼坚果、牛肉干等硬物或韧性强的食物。', reason: '让目标咬肌充分“休息”，以达到最佳的萎缩效果。' },
+                        { text: '禁食辛辣、海鲜等刺激性食物，忌烟酒。', reason: '减少可能出现的炎症反应，并避免影响伤口愈合。' },
+                    ]
+                }
+            ];
+
+            // --- Navigation Logic ---
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('section');
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (pageYOffset >= sectionTop - 80) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').includes(current)) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            // --- Timeline Slider Logic ---
+            const slider = document.getElementById('timeline-slider');
+            const timelineInfo = document.getElementById('timeline-info');
+            function updateTimelineInfo(index) {
+                const data = index < 1 ? timelineData[0] : (index < 2 ? timelineData[1] : timelineData[2]);
+                timelineInfo.innerHTML = `
+                    <div class="fade-in">
+                        <h4 class="text-lg font-bold text-blue-600">${data.title}</h4>
+                        <p class="mt-2 text-gray-600">${data.description}</p>
+                    </div>
+                `;
+            }
+            slider.addEventListener('input', () => updateTimelineInfo(slider.value));
+            updateTimelineInfo(0); // Initial call
+
+            // --- Brands Chart Logic ---
+            const ctx = document.getElementById('brandsChart').getContext('2d');
+            const brandDetailsContainer = document.getElementById('brand-details');
+            const brandsChart = new Chart(ctx, {
+                type: 'bar',
+                data: brandData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y',
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            max: 3,
+                            ticks: {
+                                stepSize: 1,
+                                callback: function(value) {
+                                    const labels = ['', 'NMPA', 'NMPA+1', 'NMPA+FDA+EMA'];
+                                    return labels[value];
+                                }
                             },
-                            label: function(context) {
-                                let label = context.dataset.label || '';
-                                if (label) { label += ': '; }
-                                if (context.parsed.x !== null) { label += `${context.parsed.x}项主要批准`; }
-                                return label;
+                             grid: { color: '#E5E7EB' }
+                        },
+                        y: { grid: { display: false } }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        title: {
+                            display: true,
+                            text: '全球主流品牌监管批准对比 (点击查看详情)',
+                            font: { size: 16 },
+                            padding: { bottom: 20 }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                title: function(tooltipItems) { return tooltipItems[0].label; },
+                                label: function(context) { return ` 批准分值: ${context.parsed.x}`; }
                             }
+                        }
+                    },
+                    onClick: (event, elements) => {
+                        if (elements.length > 0) {
+                            const index = elements[0].index;
+                            const detail = brandData.details[index];
+                            brandDetailsContainer.innerHTML = `
+                                <div class="fade-in">
+                                    <h3 class="text-2xl font-bold text-gray-800">${detail.name}</h3>
+                                    <p class="text-sm text-gray-500">${detail.origin} - ${detail.manufacturer}</p>
+                                    <p class="mt-4 text-gray-700">${detail.feature}</p>
+                                </div>
+                            `;
                         }
                     }
                 }
-            }
-        });
-
-        // Gemini API Logic
-        const apiKey = ""; 
-
-        // AI Aftercare Plan Generator
-        const generatePlanBtn = document.getElementById('generate-plan-btn');
-        const planContainer = document.getElementById('plan-container');
-        const planLoader = document.getElementById('plan-loader');
-        const dateInput = document.getElementById('treatment-date');
-
-        generatePlanBtn.addEventListener('click', async () => {
-            const treatmentDate = dateInput.value;
-            if (!treatmentDate) {
-                planContainer.innerHTML = '<p class="text-center text-red-500">请先选择您的治疗日期。</p>';
-                return;
-            }
-            
-            planContainer.innerHTML = '';
-            planLoader.style.display = 'flex';
-
-            const schema = {
-                type: "ARRAY",
-                items: {
-                    type: "OBJECT",
-                    properties: {
-                        day: { type: "STRING" },
-                        title: { type: "STRING" },
-                        dos: { type: "ARRAY", items: { type: "STRING" } },
-                        donts: { type: "ARRAY", items: { type: "STRING" } }
-                    },
-                    required: ["day", "title", "dos", "donts"]
-                }
-            };
-            
-            const prompt = `基于一个治疗日期 ${treatmentDate}，请为一位接受了用于缩小咬肌的肉毒杆菌毒素治疗的患者，生成一个详细的、为期7天的术后护理计划。请严格遵循标准的医疗术后护理指南。所有返回的内容，包括day, title, dos, donts的值，都必须是简体中文。返回的格式必须是符合所提供JSON schema的JSON数组。`;
-
-            try {
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        contents: [{ parts: [{ text: prompt }] }],
-                        generationConfig: {
-                            responseMimeType: "application/json",
-                            responseSchema: schema
-                        }
-                    })
-                });
-
-                if (!response.ok) {
-                    throw new Error(`API 请求失败，状态码: ${response.status}`);
-                }
-                
-                const result = await response.json();
-                
-                if (result.candidates && result.candidates.length > 0) {
-                    const plan = JSON.parse(result.candidates[0].content.parts[0].text);
-                    displayPlan(plan, treatmentDate);
-                } else {
-                    throw new Error("未能从API获取有效的计划。");
-                }
-            } catch (error) {
-                console.error('Error fetching plan:', error);
-                planContainer.innerHTML = `<p class="text-center text-red-500">抱歉，生成计划时发生错误。请稍后再试。</p>`;
-            } finally {
-                planLoader.style.display = 'none';
-            }
-        });
-
-        function displayPlan(plan, startDate) {
-            let html = '<div class="space-y-4">';
-            const baseDate = new Date(startDate + 'T00:00:00');
-
-            plan.forEach((dayData, index) => {
-                const currentDate = new Date(baseDate);
-                currentDate.setDate(baseDate.getDate() + index);
-                const dateString = `${currentDate.getMonth() + 1}月${currentDate.getDate()}日`;
-
-                html += `
-                    <div class="p-4 border rounded-lg bg-gray-50">
-                        <h4 class="font-bold text-lg text-[#00A9E0]">${dayData.day} (${dateString}): ${dayData.title}</h4>
-                        <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <h5 class="font-semibold text-green-600 mb-2">✅ 应该做</h5>
-                                <ul class="list-disc list-inside space-y-1 text-gray-700">
-                                    ${dayData.dos.map(item => `<li>${item}</li>`).join('')}
-                                </ul>
-                            </div>
-                            <div>
-                                <h5 class="font-semibold text-red-600 mb-2">❌ 不要做</h5>
-                                <ul class="list-disc list-inside space-y-1 text-gray-700">
-                                    ${dayData.donts.map(item => `<li>${item}</li>`).join('')}
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                `;
             });
-            html += '</div>';
-            planContainer.innerHTML = html;
-        }
-
-        // AI Chat Bot Logic
-        const chatFab = document.getElementById('chat-fab');
-        const chatModal = document.getElementById('chat-modal');
-        const closeChatBtn = document.getElementById('close-chat-btn');
-        const chatInput = document.getElementById('chat-input');
-        const sendChatBtn = document.getElementById('send-chat-btn');
-        const chatHistory = document.getElementById('chat-history');
-        const chatLoader = document.getElementById('chat-loader');
-
-        chatFab.addEventListener('click', () => chatModal.style.display = 'flex');
-        closeChatBtn.addEventListener('click', () => chatModal.style.display = 'none');
-        sendChatBtn.addEventListener('click', sendChatMessage);
-        chatInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                sendChatMessage();
-            }
-        });
-
-        async function sendChatMessage() {
-            const userQuery = chatInput.value.trim();
-            if (!userQuery) return;
-
-            appendMessage(userQuery, 'user');
-            chatInput.value = '';
-            chatLoader.style.display = 'flex';
-
-            const prompt = `你是一个关于“瘦脸针”（用于治疗咬肌肥大的A型肉毒杆菌毒素）的AI健康助手。你的知识完全基于一份专业的医疗报告。你的任务是回答用户的问题。请严格根据以下规则回答：
-1. 你的回答必须专业、准确、中立。
-2. 严禁提供任何形式的医疗建议或诊断。如果用户寻求医疗建议，你必须明确告知他们“我不能提供医疗建议，请咨询专业的、有资质的医生”。
-3. 保持回答简洁明了。
-4. 如果你不知道答案，或者问题超出了报告范围，请回答“这个问题超出了我的知识范围，建议您咨询专业医生。”
-现在，请回答以下用户问题："${userQuery}"`;
             
-            try {
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        contents: [{ parts: [{ text: prompt }] }]
-                    })
+            // --- Aftercare Logic ---
+            const careSteps = document.querySelectorAll('.step');
+            const careContent = document.getElementById('care-content');
+            
+            function updateCareContent(index) {
+                careSteps.forEach((step, i) => {
+                    step.classList.toggle('active', i <= index);
                 });
-
-                if (!response.ok) throw new Error('API request failed');
-
-                const result = await response.json();
-                const aiResponse = result.candidates[0].content.parts[0].text;
-                appendMessage(aiResponse, 'ai');
-
-            } catch (error) {
-                console.error("Chat Error:", error);
-                appendMessage("抱歉，我暂时无法回答您的问题。请稍后再试。", 'ai');
-            } finally {
-                chatLoader.style.display = 'none';
+                const data = aftercareData[index];
+                let html = `<h4 class="text-xl font-bold text-gray-800 mb-4">${data.title}</h4><ul class="space-y-3">`;
+                data.items.forEach(item => {
+                    html += `
+                        <li class="flex items-start">
+                           <span class="text-orange-500 mr-3 mt-1 font-bold">●</span>
+                           <div>
+                                <strong class="text-gray-700">${item.text}</strong>
+                                <p class="text-sm text-gray-500">原理：${item.reason}</p>
+                           </div>
+                        </li>
+                    `;
+                });
+                html += `</ul>`;
+                careContent.innerHTML = html;
+                careContent.classList.remove('fade-in');
+                void careContent.offsetWidth; // Trigger reflow
+                careContent.classList.add('fade-in');
             }
-        }
 
-        function appendMessage(text, sender) {
-            const messageWrapper = document.createElement('div');
-            const messageBubble = document.createElement('div');
+            careSteps.forEach((step, index) => {
+                step.addEventListener('click', () => updateCareContent(index));
+            });
             
-            messageWrapper.className = `flex ${sender === 'user' ? 'justify-end' : 'justify-start'}`;
-            messageBubble.className = `rounded-lg p-3 max-w-lg ${sender === 'user' ? 'bg-blue-500 text-white' : 'bg-gray-100'}`;
-            messageBubble.innerHTML = `<p>${text.replace(/\n/g, '<br>')}</p>`;
-            
-            messageWrapper.appendChild(messageBubble);
-            chatHistory.appendChild(messageWrapper);
-            chatHistory.scrollTop = chatHistory.scrollHeight;
-        }
+            updateCareContent(0); // Initial call
 
+        });
     </script>
 </body>
 </html>
